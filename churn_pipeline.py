@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.preprocessing import StandardScaler, LabelEncoder, OneHotEncoder
+from sklearn.preprocessing import StandardScaler, RobustScaler, LabelEncoder, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
@@ -99,7 +99,7 @@ class BankChurnPipeline:
 
         # 2. Preprocessing setup (OneHot for Geo, Scale for Numeric)
         # Using RobustScaler for scaling due to potential outliers in Balance/Salary
-        numeric_transformer = StandardScaler()
+        numeric_transformer = RobustScaler()
         categorical_transformer = OneHotEncoder(drop='first', sparse_output=False, handle_unknown='ignore')
         
         self.preprocessor = ColumnTransformer(
@@ -303,5 +303,7 @@ if __name__ == "__main__":
         pipeline.train_and_evaluate(X_train_res, X_test_processed, y_train_res, y_test)
         pipeline.explain_model(X_test_processed, X_test_raw)
         pipeline.save_pipeline()
+        
+        
         
         print("\nPipeline execution complete! Try running app.py for the Streamlit UI.")
