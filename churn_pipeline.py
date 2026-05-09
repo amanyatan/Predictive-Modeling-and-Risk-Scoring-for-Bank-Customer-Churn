@@ -1,12 +1,17 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
 import joblib
-import shap
 import os
 import warnings
 warnings.filterwarnings("ignore")
+
+try:
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    import shap
+    from imblearn.over_sampling import SMOTE
+except ImportError:
+    pass
 
 from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.preprocessing import StandardScaler, RobustScaler, LabelEncoder, OneHotEncoder
@@ -18,7 +23,7 @@ from xgboost import XGBClassifier
 from sklearn.metrics import (accuracy_score, precision_score, recall_score, 
                              f1_score, roc_auc_score, confusion_matrix, 
                              RocCurveDisplay, classification_report)
-from imblearn.over_sampling import SMOTE
+
 
 class BankChurnPipeline:
     def __init__(self, data_path):
