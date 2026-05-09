@@ -1,0 +1,7 @@
+*.csv
+*.ipynb
+eda_outputs/
+model_outputs/
+streamlit_app.py
+.git/
+__pycache__/
