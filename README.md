@@ -58,11 +58,30 @@ python churn_pipeline.py
 ```
 *Outputs: `churn_pipeline.pkl`, EDA visualizations in `eda_outputs/`, and metrics in `model_outputs/`.*
 
-### 2. Launch the Premium Dashboard
+### 2. Run the FastAPI Backend (Locally)
+The system includes a production-ready FastAPI backend for serving predictions:
+```bash
+uvicorn app:app --reload
+```
+Navigate to `http://localhost:8000/docs` to test the interactive API documentation.
+
+### 3. Launch the Premium Dashboard (Locally)
 Run the high-end interactive UI for real-time customer analysis:
 ```bash
 streamlit run streamlit_app.py
 ```
+
+---
+
+## ☁️ Deployment on Render
+
+This project is fully configured for deployment on [Render](https://render.com/) via a Blueprint configuration (`render.yml`). This deploys both the FastAPI backend and the Streamlit dashboard as separate web services.
+
+1. Connect your GitHub repository to your Render Dashboard.
+2. Select **New +** > **Blueprint**.
+3. Render will automatically detect the `render.yml` configuration and provision:
+   * **`bank-churn-api`**: FastAPI Web Service
+   * **`bank-churn-dashboard`**: Streamlit Web Service
 
 ---
 
@@ -76,8 +95,10 @@ streamlit run streamlit_app.py
 
 ## 📂 Project Structure
 *   `churn_pipeline.py`: The core ML engine (Training, Scaling, Feature Engineering).
+*   `app.py`: FastAPI server for serving model predictions.
 *   `streamlit_app.py`: The premium Glassmorphism-style dashboard.
 *   `requirements.txt`: Project dependencies.
+*   `render.yml`: Infrastructure-as-code for Render deployment.
 *   `model_outputs/`: ROC curves, Feature Importance, and SHAP summaries.
 *   `eda_outputs/`: Distribution plots and correlation heatmaps.
 
